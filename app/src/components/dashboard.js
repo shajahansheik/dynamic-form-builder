@@ -1,48 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, useNavigate } from 'react-router-dom';
-const formdata = [{
-    "title": "fjkhb",
-    "description": "mjdfghskhjdb",
-    "questions": [
-        {
-            "question": "q1",
-            "type": "select",
-            "answer": "",
-            "options": [
-                "male",
-                "female"
-            ]
-        },
-        {
-            "question": "q2",
-            "type": "text",
-            "answer": "",
-            "options": []
-        }
-    ]
-}, {
-    "title": "fjkhb",
-    "description": "mjdfghskhjdb",
-    "questions": [
-        {
-            "question": "q1",
-            "type": "select",
-            "answer": "",
-            "options": [
-                "male",
-                "female"
-            ]
-        },
-        {
-            "question": "q2",
-            "type": "text",
-            "answer": "",
-            "options": []
-        }
-    ]
-}]
+import Counter from './counter';
+
+import { Provider } from 'react-redux';
+import {createStore} from 'redux'
+import reducer from '../redux-store/reducer';
+
 function Dashboard() {
+    const store= createStore(reducer)
     const [formsData, setFormData] = useState([])
     const navigator = useNavigate();
     useEffect(() => {
@@ -65,8 +31,10 @@ function Dashboard() {
         navigator(`/forms/${id}`)
     }
     return (
+        <Provider store={store} >
         <div>
-            {
+            <Counter />
+            {/* {
                 formsData && formsData?.map((form, idx) => (
                     <div key={idx} className='px-4 py-2 flex  space-x-5 bg-gray-50'>
                         <div>{idx + 1}</div>
@@ -85,8 +53,9 @@ function Dashboard() {
 
                     </div>
                 ))
-            }
+            } */}
         </div>
+        </Provider>
     );
 }
 
